@@ -17,29 +17,3 @@ const authorSchema = new mongoose.Schema(
     { timestamps: true })
 
 export const Author = mongoose.model("Author", authorSchema)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
