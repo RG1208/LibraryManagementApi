@@ -15,7 +15,7 @@ const registerUser = asyncHandler(async (req, res) => {
     // 7.return response
 
     // getting input from user
-    const { email, username } = req.body
+    const { email, username, password, role } = req.body
 
     // checking for no empty fields
     if (email === "") {
@@ -25,7 +25,7 @@ const registerUser = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Username is mandatory")
     }
     else if (password === "") {
-        throw new ApiError(400, "password is mandatory")
+        throw new ApiError(400, "Password is Mandatory")
     }
     else if (role === "") {
         throw new ApiError(400, "role is mandatory")
@@ -44,7 +44,7 @@ const registerUser = asyncHandler(async (req, res) => {
         role,
         password,
         email,
-        username: username.toLowerCase()
+        username
     })
 
     // remove password and refresh token from response
