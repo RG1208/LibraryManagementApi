@@ -1,0 +1,15 @@
+{
+  "name": "librarymanagementapi",
+  "version": "1.0.0",
+  "description": "Library management API",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js"
+  },
+  "author": "rachit garg",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
