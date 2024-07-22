@@ -11,7 +11,7 @@ const userSchema = mongoose.Schema({
     },
     email: {
         type: String,
-        required: truw
+        required: true
     },
     role: {
         type: mongoose.Schema.Types.ObjectId,
