@@ -25,7 +25,7 @@
 ### User Routes
 - **POST /api/users/register**: Register a new user (admin, librarian, member)
 - **POST /api/users/login**: Log in a user and get a JWT token
-- **GET /api/users/:id**: Get user profile (admin access required)
+- **GET /api/users/:id**: Get user profile (login required)
 - **PUT /api/users/:id**: Update user profile (login required)
 - **DELETE /api/users/:id**: Delete a user (admin access required)
 
