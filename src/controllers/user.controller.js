@@ -4,6 +4,7 @@ import { ApiError } from "../utils/ApiError.js"
 import { User } from "../models/users.models.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt"
 import { generateAccessAndRefreshToken } from "../utils/AccessRefreshToken.js";
 
 // Register User
@@ -128,7 +129,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 })
 
-// LOGOUT METHOD
+// Logout User
 const logoutUser = asyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(
         req.user?._id,
@@ -154,4 +155,30 @@ const logoutUser = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, {}, "User logged Out Successfully"))
 })
 
-export { registerUser, loginUser, logoutUser }
+// Get User Profile
+const getUserProfile = asyncHandler(async (req, res) => {
+    res.send(req.user);
+})
+
+// Update User Profile
+const updateUserProfile = asyncHandler(async (req, res) => {
+    const { username, email, password } = req.body
+
+    const user = await User.findByIdAndUpdate(
+        req.user?._id,
+        {
+            $set: {
+                username,
+                email,
+                password: await bcrypt.hash(password, 10)
+            }
+        },
+        { new: true }
+    )
+    return res
+        .status(200)
+        .json(new ApiResponse(200, user, "Account details updated successfully"))
+
+})
+
+export { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile }

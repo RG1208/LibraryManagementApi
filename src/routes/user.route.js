@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerUser, loginUser, logoutUser } from "../controllers/user.controller.js";
+import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router()
@@ -10,7 +10,7 @@ router.route("/login").post(loginUser)
 // secured Routes
 router.route("/logout").post(verifyJWT, logoutUser)
 
-router.route("/me").get(verifyJWT, async (req, res) => {
-    res.send(req.user);
-})
+router.route("/id").get(verifyJWT, getUserProfile)
+
+router.route("/id").put(verifyJWT, updateUserProfile)
 export default router
