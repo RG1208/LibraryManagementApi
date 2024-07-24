@@ -57,4 +57,61 @@ const registerAuthor = asyncHandler(async (req, res) => {
     )
 })
 
-export { registerAuthor }
+// Get list of all the Authors
+const getAuthors = asyncHandler(async (req, res) => {
+    try {
+        const authors = await Author.find();
+        return res.status(201).json(
+            new ApiResponse(200, authors, "List of all the Authors fetched successfully")
+        )
+    } catch (error) {
+        throw new ApiError(500, "Failed to fetch Authors")
+    }
+});
+
+// get a particular author
+const getUserProfile = asyncHandler(async (req, res) => {
+    // const author = await Author.findById(req.params.id);
+    // if (!author) {
+    //     throw new ApiError(400, "invalid author id")
+    // }
+    res.send(req.author)
+
+})
+
+// Update Author Details
+const updateAuthorProfile = asyncHandler(async (req, res) => {
+    const { name, nationality, birthDate } = req.body
+
+    const author = await Author.findByIdAndUpdate(
+        req.params.id,
+        {
+            $set: {
+                name,
+                nationality,
+                birthDate
+            }
+        },
+        { new: true }
+    )
+    return res
+        .status(200)
+        .json(new ApiResponse(200, author, "Account details updated successfully"))
+
+})
+
+// Deleting user 
+const deleteAuthor = asyncHandler(async (req, res) => {
+    try {
+        const author = await Author.findByIdAndDelete(req.params.id);
+        if (!author) {
+            throw new ApiError(400, "invalid author id")
+        }
+        return res
+            .status(200)
+            .json(new ApiResponse(200, author, "author Successfully deleted"))
+    } catch (error) {
+        throw new ApiError(400, "Cannot delete author")
+    }
+});
+export { registerAuthor, getAuthors, getUserProfile, updateAuthorProfile, deleteAuthor }
