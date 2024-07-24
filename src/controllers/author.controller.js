@@ -61,9 +61,8 @@ const registerAuthor = asyncHandler(async (req, res) => {
 const getAuthors = asyncHandler(async (req, res) => {
     try {
         const authors = await Author.find();
-        return res.status(201).json(
-            new ApiResponse(200, authors, "List of all the Authors fetched successfully")
-        )
+        res.send(authors)
+
     } catch (error) {
         throw new ApiError(500, "Failed to fetch Authors")
     }
