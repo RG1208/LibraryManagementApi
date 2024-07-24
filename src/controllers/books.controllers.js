@@ -4,6 +4,7 @@ import { Book } from "../models/books.models.js";
 import { Author } from "../models/author.models.js";
 import { ApiResponse } from "../utils/ApiResponse.js"
 
+// create Book
 const createBook = asyncHandler(async (req, res) => {
     try {
         const author = await Author.findOne({ name: req.body.author });
@@ -29,17 +30,72 @@ const createBook = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Failed to create a Book")
     }
 
-    //check weather the book already exists or not (with title)
 
+});
+
+// Get list of all the Books
+const getBooks = asyncHandler(async (req, res) => {
+    try {
+        const books = await Book.find();
+        res.send(books)
+
+    } catch (error) {
+        throw new ApiError(500, "Failed to fetch Books")
+    }
+});
+
+// get a particular Book
+const getBookProfile = asyncHandler(async (req, res) => {
+    const book = await Book.findById(req.params.id);
+    if (!book) {
+        throw new ApiError(400, "invalid Book id")
+    }
+    res.send(book)
+
+})
+
+// Update Book Details
+const updateBook = asyncHandler(async (req, res) => {
+    const { title, author, genre, publicationDate, availableCopies } = req.body
+
+    const book = await Book.findByIdAndUpdate(
+        req.params.id,
+        {
+            $set: {
+                title,
+                author,
+                genre,
+                publicationDate,
+                availableCopies
+            }
+        },
+        { new: true }
+    )
+    return res
+        .status(200)
+        .json(new ApiResponse(200, book, "Book details updated successfully"))
+
+})
+
+// Deleting user 
+const deleteBook = asyncHandler(async (req, res) => {
+    try {
+        const book = await Book.findByIdAndDelete(req.params.id);
+        if (!book) {
+            throw new ApiError(400, "invalid book id")
+        }
+        return res
+            .status(200)
+            .json(new ApiResponse(200, book, "Book Successfully deleted"))
+    } catch (error) {
+        throw new ApiError(400, "Cannot delete book")
+    }
 });
 
 
 
+export { createBook, getBooks, getBookProfile, updateBook, deleteBook }
 
-
-export { createBook }
-
-// const addBook = asyncHandler(async (req, res) => {
 //     // 1. get input from user
 //     // 2. check for no empty fields
 //     // 3. check weather the book already exists or not (with title)
