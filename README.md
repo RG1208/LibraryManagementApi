@@ -25,12 +25,13 @@
 ### User Routes
 - **POST /api/users/register**: Register a new user (admin, librarian, member)
 - **POST /api/users/login**: Log in a user and get a JWT token
+- **POST /api/users/logout**: Log out a user and take a JWT token
 - **GET /api/users/:id**: Get user profile (login required)
 - **PUT /api/users/:id**: Update user profile (login required)
 - **DELETE /api/users/:id**: Delete a user (admin access required)
 
 ### Book Routes
-- **POST /api/books**: Add a new book (admin access required)
+- **POST /api/books**: Add a new book (admin or librarian access required)
 - **GET /api/books**: Get a list of books
 - **GET /api/books/:id**: Get details of a specific book
 - **PUT /api/books/:id**: Update book details (admin access required)
