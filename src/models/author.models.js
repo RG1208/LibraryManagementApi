@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const authorSchema = new mongoose.Schema(
     {
         name: {

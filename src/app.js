@@ -17,10 +17,12 @@ app.use(cookieParser())
 // import routes
 import userRouter from './routes/user.route.js'
 import bookRouter from './routes/books.routes.js'
+import authorRouter from './routes/author.routes.js'
 
 // routes declaration
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/books", bookRouter)
+app.use("/api/v1/authors", authorRouter)
 
 
 export { app }
