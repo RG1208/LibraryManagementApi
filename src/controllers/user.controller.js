@@ -1,9 +1,7 @@
-import mongoose from "mongoose";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js"
 import { User } from "../models/users.models.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
-import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
 import { generateAccessAndRefreshToken } from "../utils/AccessRefreshToken.js";
 
@@ -157,15 +155,19 @@ const logoutUser = asyncHandler(async (req, res) => {
 
 // Get User Profile
 const getUserProfile = asyncHandler(async (req, res) => {
-    res.send(req.user);
-})
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        throw new ApiError(400, "invalid User id")
+    }
+    res.send(user)
 
+})
 // Update User Profile
 const updateUserProfile = asyncHandler(async (req, res) => {
     const { username, email, password } = req.body
 
     const user = await User.findByIdAndUpdate(
-        req.user?._id,
+        req.params.id,
         {
             $set: {
                 username,

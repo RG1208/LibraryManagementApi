@@ -10,9 +10,9 @@ router.route("/login").post(loginUser)
 // secured Routes
 router.route("/logout").post(verifyJWT, logoutUser)
 
-router.route("/id").get(verifyJWT, getUserProfile)
+router.route("/:id").get(verifyJWT, getUserProfile)
 
-router.route("/id").put(verifyJWT, updateUserProfile)
+router.route("/:id").put(verifyJWT, updateUserProfile)
 
-router.route("/:id").delete(adminMiddleware, deleteUser)
+router.route("/:id").delete(verifyJWT, adminMiddleware, deleteUser)
 export default router
