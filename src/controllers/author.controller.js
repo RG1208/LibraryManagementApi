@@ -71,11 +71,11 @@ const getAuthors = asyncHandler(async (req, res) => {
 
 // get a particular author
 const getUserProfile = asyncHandler(async (req, res) => {
-    // const author = await Author.findById(req.params.id);
-    // if (!author) {
-    //     throw new ApiError(400, "invalid author id")
-    // }
-    res.send(req.author)
+    const author = await Author.findById(req.params.id);
+    if (!author) {
+        throw new ApiError(400, "invalid author id")
+    }
+    res.send(author)
 
 })
 

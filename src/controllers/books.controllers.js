@@ -19,19 +19,19 @@ const addBook = asyncHandler(async (req, res) => {
 
     // check for no empty fields
     if (title === "") {
-        throw new ApiError(400, "Email is mandatory")
+        throw new ApiError(400, "Title is mandatory")
     }
     else if (author === "") {
-        throw new ApiError(400, "Username is mandatory")
+        throw new ApiError(400, "author is mandatory")
     }
     else if (genre === "") {
-        throw new ApiError(400, "Password is Mandatory")
+        throw new ApiError(400, "genre is Mandatory")
     }
     else if (publicationDate === "") {
-        throw new ApiError(400, "role is mandatory")
+        throw new ApiError(400, "Publication Date is mandatory")
     }
     else if (availableCopies === "") {
-        throw new ApiError(400, "role is mandatory")
+        throw new ApiError(400, "Available copies are mandatory")
     }
 
     // check weather the book already exists or not (with title)
