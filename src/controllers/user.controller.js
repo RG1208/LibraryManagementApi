@@ -181,4 +181,19 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
 })
 
-export { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile }
+// Deleting user 
+const deleteUser = asyncHandler(async (req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.params.id);
+        if (!user) {
+            throw new ApiError(400, "invalid user id")
+        }
+        return res
+            .status(200)
+            .json(new ApiResponse(200, user, "User Successfully deleted"))
+    } catch (error) {
+        throw new ApiError(400, "Cannot delete user")
+    }
+});
+
+export { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, deleteUser }

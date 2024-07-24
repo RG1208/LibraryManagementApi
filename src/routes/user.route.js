@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile } from "../controllers/user.controller.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { registerUser, loginUser, logoutUser, getUserProfile, updateUserProfile, deleteUser } from "../controllers/user.controller.js";
+import { verifyJWT, adminMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router()
 
@@ -13,4 +13,6 @@ router.route("/logout").post(verifyJWT, logoutUser)
 router.route("/id").get(verifyJWT, getUserProfile)
 
 router.route("/id").put(verifyJWT, updateUserProfile)
+
+router.route("/:id").delete(adminMiddleware, deleteUser)
 export default router
